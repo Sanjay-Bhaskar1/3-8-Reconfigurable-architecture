@@ -1,0 +1,68 @@
+-- CU_test_bench
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use STD.ENV.FINISH;
+
+
+entity CU_Test is
+
+end CU_Test;
+
+architecture Behavioral of CU_Test is
+
+constant d_w_c : integer := 4;
+signal Seld : std_logic_vector (4 downto 0);
+signal Ad,Bd,Yd :std_logic_vector (d_w_c - 1 downto 0);
+
+begin
+
+instance : entity work.Comp_Unit(Behavioral)
+
+generic map(d_w => d_w_c)
+port map (A=>Ad,B=>Bd,Sel=>Seld,Y=>Yd);
+
+stimulus:process
+begin
+
+Ad<="0000";Bd<="0001"; Seld<="00000"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="00001"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="00010"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="00011"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="00100"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="00101"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="00110"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="00111"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="01000"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="01001"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="01010"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="01011"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="01100"; wait for 10ns;
+
+Ad<="1011";Bd<="0010"; Seld<="01101"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="01110"; wait for 10ns;
+
+Ad<="0000";Bd<="0001"; Seld<="01111"; wait for 10ns;
+
+Ad<="0111";Bd<="0010"; Seld<="10000"; wait for 10ns;
+
+Ad<="1100";Bd<="0001"; Seld<="10001"; wait for 10ns;
+
+end process;
+
+end Behavioral;
