@@ -1,0 +1,73 @@
+-- computational unit
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity Comp_unit is
+generic (d_w : integer := 4);
+ port (
+ A : in std_logic_vector(d_w - 1 downto 0);
+ B : in std_logic_vector(d_w - 1 downto 0);
+ Sel : in std_logic_vector(4 downto 0);
+ Y : out std_logic_vector(d_w - 1 downto 0)
+ );
+end Comp_unit;
+
+architecture Behavioral of Comp_unit is
+
+begin
+process (A, B, Sel)
+ variable mult_full : std_logic_vector(2 * d_w - 1 downto 0);
+
+begin
+ case Sel is
+ when "00000" => Y <= A and B;
+ when "00001" => Y <= A or B;
+ when "00010" => Y <= A nand B;
+ when "00011" => Y <= A nor B;
+ when "00100" => Y <= A xor B;
+ when "00101" => Y <= A xnor B;
+ when "00110" => Y <= std_logic_vector(unsigned(A) + unsigned(B));
+ when "00111" => Y <= std_logic_vector(unsigned(A) - unsigned(B));
+ when "01000" => mult_full := std_logic_vector(unsigned(A) * unsigned(B));
+                 Y <= mult_full(d_w - 1 downto 0);
+ when "01001" =>
+ if A > B then
+ Y <= (others => '1');
+ else
+ Y <= (others => '0');
+ end if;
+
+ when "01010" =>
+ if A < B then
+ Y <= (others => '1');
+ else
+ Y <= (others => '0');
+ end if;
+ 
+ when "01011" =>
+ if A = B then
+ Y <= (others => '1');
+ else
+ Y <= (others => '0');
+ end if;
+ 
+ when "01100" => Y <= to_stdlogicvector(to_bitvector(A) sla to_integer(unsigned(B)));
+ 
+ when "01101" => Y <= to_stdlogicvector(to_bitvector(A) sra to_integer(unsigned(B)));
+
+ when "01110" => Y <= to_stdlogicvector(to_bitvector(A) rol to_integer(unsigned(B)));
+
+ when "01111" => Y <= to_stdlogicvector(to_bitvector(A) ror to_integer(unsigned(B)));
+
+ when "10000" => Y <= to_stdlogicvector(to_bitvector(A) sll to_integer(unsigned(B)));
+
+ when "10001" => Y <= to_stdlogicvector(to_bitvector(A) srl to_integer(unsigned(B)));
+
+ when others => Y <= (others => '0');
+ 
+ end case;
+   end process;
+     end Behavioral;
