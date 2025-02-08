@@ -1,0 +1,36 @@
+4*1mux_TB
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.NUMERIC_STD.ALL;
+use STD.ENV.FINISH;
+
+entity mux_Test is
+
+end mux_Test;
+
+architecture Behavioral of mux_Test is
+
+constant d_w_c: integer := 3;
+signal I0d, I1d, I2d, I3d, Yd: std_logic_vector(d_w_c - 1 downto 0);
+signal muxseld: std_logic_vector(1 downto 0);
+
+begin
+mux: entity work.mux(Behavioral)
+    Generic map(d_w => d_w_c)
+    Port map (I0 => I0d, I1 => I1d, I2 => I2d, I3 => I3d, muxsel => muxseld, Y => Yd
+    );
+
+    stim: process
+        begin
+            I0d <= "000"; I1d <= "001"; I2d <= "011"; I3d <= "111";
+      
+            for i in 0 to 3 loop
+                muxseld <= std_logic_vector(TO_UNSIGNED(i, muxseld'length)); 
+                wait for 10 ns;
+            end loop;
+          
+        finish;
+    end process stim;  
+  end Behavioral;
