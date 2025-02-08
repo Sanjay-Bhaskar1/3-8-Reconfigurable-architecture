@@ -1,0 +1,3 @@
+This project implements a 3×8 Reconfigurable Computing Architecture; however, instead of designing it as a fully connected architecture, I have made direct connections in the main code. This approach was taken intentionally, as I am concurrently developing another project—a fully connected Reconfigurable Computing Architecture.
+
+The fully connected version will allow complete reconfiguration using only the testbench, making it highly adaptable. Additionally, it is designed to be low-power and low-area, which enhances its practicality for modern-day applications where energy efficiency and compact design are crucial.
