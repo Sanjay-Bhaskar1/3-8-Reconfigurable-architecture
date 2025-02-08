@@ -1,0 +1,28 @@
+--4*1mux
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.std_logic_unsigned.all;
+use ieee.numeric_std.all;
+
+entity mux is
+Generic(d_w: integer := 4);
+    Port ( I0, I1, I2, I3 : in std_logic_vector(d_w - 1 downto 0);
+           muxsel : in std_logic_vector(1 downto 0); --2 bit select line
+           Y : out std_logic_vector(d_w - 1 downto 0));
+end mux;
+
+architecture Behavioral of mux is
+
+begin
+mux_proc: process(I0, I1, I2, I3, muxSel)
+begin
+        case muxsel is
+        when "00" => Y <= I0;
+        when "01" => Y <= I1;
+        when "10" => Y <= I2;
+        when "11" => Y <= I3;
+        when others => Y <= (others => 'Z');
+        end case;
+    end process;
+ end Behavioral;
